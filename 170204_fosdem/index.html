@@ -18,28 +18,30 @@
       <section>
         <h3>Presenters</h3>
         <table>
-          <tr>
-            <td rowspan="2">Dave Hunt</td>
-            <td><a href="mailto:dhunt@mozilla.com">dhunt@mozilla.com</a></td>
-          </tr>
-          <tr>
-            <td><a href="http://davehunt.co.uk/">http://davehunt.co.uk/</a></td>
-          </tr>
-          <tr>
-            <td rowspan="2">Henrik Skupin</td>
-            <td><a href="mailto:hskupin@mozilla.com">hskupin@mozilla.com</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://hskupin.info/">https://hskupin.info/</a></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td rowspan="2">Dave Hunt</td>
+              <td><a href="mailto:dhunt@mozilla.com">dhunt@mozilla.com</a></td>
+            </tr>
+            <tr>
+              <td><a href="http://davehunt.co.uk/">http://davehunt.co.uk/</a></td>
+            </tr>
+            <tr>
+              <td rowspan="2">Henrik Skupin</td>
+              <td><a href="mailto:hskupin@mozilla.com">hskupin@mozilla.com</a></td>
+            </tr>
+            <tr>
+              <td><a href="https://hskupin.info/">https://hskupin.info/</a></td>
+            </tr>
+          </tbody>
         </table>
       </section>
 
       <section>
         <h2>Overview</h2>
         <p class="fragment fade-right">Browser Automation with Selenium</p>
-        <p class="fragment fade-right">What was Firefox Driver?</p>
-        <p class="fragment fade-right">The Future: WebDriver</p>
+        <p class="fragment fade-right">What is Firefox Driver?</p>
+        <p class="fragment fade-right">The Future: Marionette &amp; GeckoDriver</p>
         <p class="fragment fade-right">Page Objects with FoxPuppet</p>
       </section>
 
@@ -48,25 +50,65 @@
           <h2>Browser Automation with Selenium</h2>
         </section>
         <section>
-          All about Selenium
+          <ul>
+            <li>Suite of tools across platforms</li>
+            <li>Different bindings like Python, Java, ...</li>
+            <li>Support for every major browser</li>
+            <li>Control via Webdriver API</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Drawing of how it works?</li>
+          </ul>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>What was Firefox Driver?</h2>
+          <h2>What is Firefox Driver?</h2>
         </section>
         <section>
-          All about Firefox Driver
+          <ul>
+            <li>Implementation of the Webdriver API for Firefox</li>
+            <li>Created by the Selenium community</li>
+            <li>Works through an extension</li>
+          </ul>
+          <p style="margin-top: 1em; color: #c00;" class="fragment fade-right">
+            Deprecated due to extension signing in Firefox 48
+          </p>
+          <p class="fragment fade-right">
+            So what now?
+          </p>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>The Future: WebDriver</h2>
+          <h2>The Future: Marionette &amp; GeckoDriver</h2>
         </section>
         <section>
-          All about WebDriver
+          <h3>Marionette</h3>
+          <ul>
+            <li>Automation driver for Gecko</li>
+            <li>Directly build into Firefox and Fennec</li>
+            <li>Can control both chrome and content</li>
+            <li>Communicates via TCP sockets</li>
+          </ul>
+        </section>
+        <section>
+          <h3>GeckoDriver</h3>
+          <ul>
+            <li>Proxy for W3C WebDriver-compatible clients and Gecko-based browsers</li>
+            <li>Provides the HTTP API as described by the WebDriver protocol</li>
+            <li>Translates calls into the Marionette automation protocol</li>
+          </ul>
+        </section>
+        <section>
+          <p>Diagram</p>
+        </section>
+        <section>
+          <p>Code example</p>
         </section>
       </section>
 
@@ -75,7 +117,9 @@
           <h2>Page Objects with FoxPuppet</h2>
         </section>
         <section>
-          All about FoxPuppet
+          <ul>
+            <li></li>
+          </ul>
         </section>
       </section>
 
@@ -98,6 +142,7 @@
       width: 720,
       height: 576,
       history: true,
+      slideNumber: true,
     });
   </script>
 </body>
