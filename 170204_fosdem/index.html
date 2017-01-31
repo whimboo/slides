@@ -62,16 +62,15 @@
           <pre><code class="hljs">
 from selenium.webdriver import Firefox
 
-def test_search():
-    selenium = Firefox()
-    selenium.get('https://addons.mozilla.org')
+selenium = Firefox()
+selenium.get('https://addons.mozilla.org')
 
-    input = selenium.find_element_by_id('search-q')
-    input.send_keys('NoScript')
-    submit = selenium.find_element_by_class_name('search-button')
-    submit.click()
+input = selenium.find_element_by_id('search-q')
+input.send_keys('NoScript')
+submit = selenium.find_element_by_class_name('search-button')
+submit.click()
 
-    selenium.quit()
+selenium.quit()
           </code></pre>
         </section>
         <section>
