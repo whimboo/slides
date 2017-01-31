@@ -2,6 +2,7 @@
 <head>
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <link rel="stylesheet" href="reveal.js/css/theme/league.css">
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 
   <meta charset="utf-8">
   <title>Firefox: The Puppet Show</title>
@@ -140,7 +141,37 @@ def test_submit():
           <p>what id does</p>
         </section>
         <section>
-          <p>code sample</p>
+          <h3>Without FoxPuppet</h3>
+          <pre><code>
+from selenium.webdriver import Firefox
+
+def test_install():
+    selenium = Firefox()
+    selenium.get('https://addons.mozilla.org/firefox/addon/adblock-plus/')
+    selenium.find_element_by_css_selector('#addon .installer.button').click()
+    with selenium.context(selenium.CONTEXT_CHROME):
+       # TODO
+    selenium.quit()
+          </code></pre>
+        </section>
+        <section>
+          <h3>With FoxPuppet</h3>
+          <pre><code>
+from foxpuppet import FoxPuppet
+from foxpuppet.browser.notifications import (
+    AddOnInstallComplete,
+    AddOnInstallConfirmation)
+from selenium.webdriver import Firefox
+
+def test_install():
+    selenium = Firefox()
+    foxpuppet = FoxPuppet(selenium)
+    selenium.get('https://addons.mozilla.org/firefox/addon/adblock-plus/')
+    selenium.find_element_by_css_selector('#addon .installer.button').click()
+    foxpuppet.wait_for_notification(AddOnInstallConfirmation).install()
+    foxpuppet.wait_for_notification(AddOnInstallComplete).close()
+    selenium.quit()
+          </code></pre>
         </section>
         <section>
           <p>video</p>
@@ -160,6 +191,7 @@ def test_submit():
       </section>
     </div>
   </div>
+  <script src="reveal.js/lib/js/head.min.js"></script>
   <script src="reveal.js/js/reveal.js"></script>
   <script>
     Reveal.initialize({
@@ -167,6 +199,10 @@ def test_submit():
       height: 576,
       history: true,
       slideNumber: true,
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+      ]
     });
   </script>
 </body>
