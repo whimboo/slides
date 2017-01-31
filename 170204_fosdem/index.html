@@ -150,7 +150,7 @@ def test_install():
           <h3>With FoxPuppet</h3>
           <pre><code>
 from foxpuppet import FoxPuppet
-from foxpuppet.browser.notifications import (
+from foxpuppet.windows.browser.notifications.addons import (
     AddOnInstallComplete,
     AddOnInstallConfirmation)
 from selenium.webdriver import Firefox
@@ -160,13 +160,13 @@ def test_install():
     foxpuppet = FoxPuppet(selenium)
     selenium.get('https://addons.mozilla.org/addon/adblock-plus/')
     selenium.find_element_by_css_selector('#addon .installer.button').click()
-    foxpuppet.wait_for_notification(AddOnInstallConfirmation).install()
-    foxpuppet.wait_for_notification(AddOnInstallComplete).close()
+    foxpuppet.browser.wait_for_notification(AddOnInstallConfirmation).install()
+    foxpuppet.browser.wait_for_notification(AddOnInstallComplete).close()
     selenium.quit()
           </code></pre>
         </section>
         <section>
-          <p>video</p>
+          <video data-autoplay src="images/foxpuppet-demo.mov"></video>
         </section>
       </section>
 
