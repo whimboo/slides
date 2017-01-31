@@ -9,9 +9,7 @@
 
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <link rel="stylesheet" href="reveal.js/css/theme/league.css">
-
-  <!-- Theme used for syntax highlighting of code -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 </head>
 
 <body>
@@ -43,8 +41,7 @@
           </ul>
         </section>
         <section>
-          <h3 style="margin-bottom: 50px;">Communication Overview</h3>
-          <object data="images/selenium-overview.svg" type="image/svg+xml">
+          <object data="images/selenium-overview-legacy.svg" type="image/svg+xml">
           </object>
         </section>
       </section>
@@ -64,18 +61,17 @@
           <!-- Add syntax highlight! -->
           <pre><code class="hljs">
 from selenium.webdriver import Firefox
-from selenium.webdriver.common.by import By
 
-def test_submit():
-    driver = Firefox()
-    driver.get('https://addons.mozilla.org')
+def test_search():
+    selenium = Firefox()
+    selenium.get('https://addons.mozilla.org')
 
-    input = driver.find_element(By.ID, 'search-q')
+    input = selenium.find_element_by_id('search-q')
     input.send_keys('NoScript')
-    submit = driver.find_element(By.CLASS, 'search-button')
+    submit = selenium.find_element_by_class_name('search-button')
     submit.click()
 
-    driver.quit()
+    selenium.quit()
           </code></pre>
         </section>
         <section>
@@ -113,6 +109,8 @@ def test_submit():
         </section>
         <section>
           <p>Diagram</p>
+          <object data="images/selenium-overview.svg" type="image/svg+xml">
+          </object>
           <p>no test changes are necessary</p>
         </section>
       </section>
@@ -125,7 +123,37 @@ def test_submit():
           <p>what id does</p>
         </section>
         <section>
-          <p>code sample</p>
+          <h3>Without FoxPuppet</h3>
+          <pre><code>
+from selenium.webdriver import Firefox
+
+def test_install():
+    selenium = Firefox()
+    selenium.get('https://addons.mozilla.org/firefox/addon/adblock-plus/')
+    selenium.find_element_by_css_selector('#addon .installer.button').click()
+    with selenium.context(selenium.CONTEXT_CHROME):
+       # TODO
+    selenium.quit()
+          </code></pre>
+        </section>
+        <section>
+          <h3>With FoxPuppet</h3>
+          <pre><code>
+from foxpuppet import FoxPuppet
+from foxpuppet.browser.notifications import (
+    AddOnInstallComplete,
+    AddOnInstallConfirmation)
+from selenium.webdriver import Firefox
+
+def test_install():
+    selenium = Firefox()
+    foxpuppet = FoxPuppet(selenium)
+    selenium.get('https://addons.mozilla.org/firefox/addon/adblock-plus/')
+    selenium.find_element_by_css_selector('#addon .installer.button').click()
+    foxpuppet.wait_for_notification(AddOnInstallConfirmation).install()
+    foxpuppet.wait_for_notification(AddOnInstallComplete).close()
+    selenium.quit()
+          </code></pre>
         </section>
         <section>
           <p>video</p>
@@ -162,7 +190,6 @@ def test_submit():
       height: 576,
       history: true,
       slideNumber: true,
-
       dependencies: [
         { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
       ]
