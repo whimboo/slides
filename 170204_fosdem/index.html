@@ -1,10 +1,17 @@
 <html>
+
 <head>
+  <meta charset="utf-8">
+  <title>Firefox: The Puppet Show</title>
+
+  <meta name="description" content="Automating Firefox with WebDriver using Selenium and GeckoDriver">
+    <meta name="author" content="Dave Hunt, Henrik Skupin">
+
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <link rel="stylesheet" href="reveal.js/css/theme/league.css">
 
-  <meta charset="utf-8">
-  <title>Firefox: The Puppet Show</title>
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 </head>
 
 <body>
@@ -16,29 +23,7 @@
       </section>
 
       <section>
-        <h3>Presenters</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td rowspan="2">Dave Hunt</td>
-              <td><a href="mailto:dhunt@mozilla.com">dhunt@mozilla.com</a></td>
-            </tr>
-            <tr>
-              <td><a href="http://davehunt.co.uk/">http://davehunt.co.uk/</a></td>
-            </tr>
-            <tr>
-              <td rowspan="2">Henrik Skupin</td>
-              <td><a href="mailto:hskupin@mozilla.com">hskupin@mozilla.com</a></td>
-            </tr>
-            <tr>
-              <td><a href="https://hskupin.info/">https://hskupin.info/</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section>
-        <h2>Overview</h2>
+        <h2>Topics</h2>
         <p class="fragment fade-right">Browser Automation with Selenium</p>
         <p class="fragment fade-right">What is Firefox Driver?</p>
         <p class="fragment fade-right">Marionette &amp; GeckoDriver</p>
@@ -54,7 +39,7 @@
             <li>Suite of tools across platforms</li>
             <li>Different bindings like Python, Java, Ruby, Javascript</li>
             <li>Support for every major browser</li>
-            <li>Controls browsers via driver through Webdriver API</li>
+            <li>Controls browsers via driver through WebDriver API</li>
           </ul>
         </section>
         <section>
@@ -76,6 +61,7 @@
           </ul>
         </section>
         <section>
+          <!-- Add syntax highlight! -->
           <pre><code class="hljs">
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
@@ -152,20 +138,34 @@ def test_submit():
 
       <section>
         <h2>Thanks</h2>
-        <ul>
-          <li>Slides: <a href="https://">https://TODO</a></li>
-          <li>Contact: </li>
-        </ul>
+        <p>Slides: <a href="https://whimboo.github.io/slides/170204_fosdem/">https://bit.ly/17-puppetshow</a></p>
+        <hr/>
+        <p>
+          Dave Hunt &lt;<a href="mailto:dhunt@mozilla.com">dhunt@mozilla.com</a>&gt;<br/>
+          <a href="http://davehunt.co.uk/">http://davehunt.co.uk/</a>
+        </p>
+        <p>
+          Henrik Skupin &lt;<a href="mailto:hskupin@mozilla.com">hskupin@mozilla.com</a>&gt;<br/>
+          <a href="https://hskupin.info/">https://hskupin.info/</a>
+        </p>
       </section>
+
     </div>
   </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
   <script src="reveal.js/js/reveal.js"></script>
+
   <script>
     Reveal.initialize({
       width: 720,
       height: 576,
       history: true,
       slideNumber: true,
+
+      dependencies: [
+        { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+      ]
     });
   </script>
 </body>
