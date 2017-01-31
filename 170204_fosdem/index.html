@@ -76,10 +76,10 @@ def test_search():
     selenium = Firefox()
     selenium.get('https://addons.mozilla.org')
 
-    textbox = selenium.find_element_by_id('search-q')
-    textbox.send_keys('NoScript')
-    submit = selenium.find_element_by_class_name('search-button')
-    submit.click()
+    searchbox = selenium.find_element_by_id('search-q')
+    searchbox.send_keys('NoScript')
+    button = selenium.find_element_by_class_name('search-button')
+    button.click()
 
     selenium.quit()
           </code></pre>
