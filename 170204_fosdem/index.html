@@ -54,7 +54,7 @@
             <li>Suite of tools across platforms</li>
             <li>Different bindings like Python, Java, Ruby, Javascript</li>
             <li>Support for every major browser</li>
-            <li>Control via Webdriver API</li>
+            <li>Controls browsers via driver through Webdriver API</li>
           </ul>
         </section>
         <section>
@@ -70,19 +70,32 @@
         </section>
         <section>
           <ul>
-            <li>what it does </li>
-            <li>Implementation of the Webdriver API for Firefox</li>
-            <li>Maintained by the Selenium community</li>
+            <li>Specific driver to control Firefox</li>
             <li>Works through an Firefox Add-on</li>
+            <li>Maintained by the Selenium community</li>
           </ul>
         </section>
         <section>
-          <p>Code example</p>
+          <pre><code class="hljs">
+from selenium.webdriver import Firefox
+from selenium.webdriver.common.by import By
+
+def test_submit():
+    driver = Firefox()
+    driver.get('https://addons.mozilla.org')
+
+    input = driver.find_element(By.ID, 'search-q')
+    input.send_keys('NoScript')
+    submit = driver.find_element(By.CLASS, 'search-button')
+    submit.click()
+
+    driver.quit()
+          </code></pre>
         </section>
         <section>
-          <p style="margin-top: 1em; color: #c00;" class="fragment fade-right">
+          <h3 style="color: #f00;">
             Deprecated due to add-on signing in Firefox 48
-          </p>
+          </h3>
           <p class="fragment fade-right">
             How to solve this problem?
           </p>
