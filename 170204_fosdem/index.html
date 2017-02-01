@@ -77,7 +77,7 @@ def test_search():
     selenium.get('https://addons.mozilla.org')
 
     searchbox = selenium.find_element_by_id('search-q')
-    searchbox.send_keys('NoScript')
+    searchbox.send_keys('DuckDuckGo Plus')
     button = selenium.find_element_by_class_name('search-button')
     button.click()
 
