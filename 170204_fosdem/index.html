@@ -26,28 +26,33 @@
   <div class="reveal">
     <div class="slides">
       <section>
-        <h1>Firefox: The Puppet Show</h1>
+        <h2>Firefox: The Puppet Show</h2>
         <h3>Automating Firefox with WebDriver using Selenium and GeckoDriver</h3>
       </section>
 
       <section>
         <h2>Topics</h2>
-        <p class="fragment fade-right">Browser Automation with Selenium</p>
+        <p class="fragment fade-right">Browser automation with Selenium</p>
         <p class="fragment fade-right">What is Firefox Driver?</p>
         <p class="fragment fade-right">Marionette &amp; GeckoDriver</p>
-        <p class="fragment fade-right">Page Objects with FoxPuppet</p>
+        <p class="fragment fade-right">Introducing FoxPuppet</p>
       </section>
 
       <section>
         <section>
-          <h2>Browser Automation with Selenium</h2>
+          <h2>Browser automation<br />with Selenium</h2>
         </section>
         <section>
+          <h2>Selenium</h2>
           <ul>
-            <li>Suite of tools across platforms</li>
-            <li>Different bindings like Python, Java, Ruby, Javascript</li>
-            <li>Support for every major browser</li>
-            <li>Controls browsers via driver through WebDriver API</li>
+            <li>Suite of tools for browser automation</li>
+            <li>Supports all major web browsers</li>
+            <li>Clients provide the WebDriver API</li>
+            <li>Officially supports several clients:
+              <ul>
+                <li>Python, Java, Ruby, JavaScript, &amp; .NET</li>
+              </ul>
+            </li>
           </ul>
         </section>
         <section>
@@ -61,34 +66,29 @@
           <h2>What is Firefox Driver?</h2>
         </section>
         <section>
+          <h2>Firefox Driver</h2>
           <ul>
             <li>Specific driver to control Firefox</li>
-            <li>Works through an Firefox Add-on</li>
+            <li>Works through a Firefox add-on</li>
             <li>Maintained by the Selenium community</li>
           </ul>
         </section>
         <section data-background="images/amo.jpg">
           <h3>Example</h3>
-          <pre><code class="hljs">
+          <pre><code class="python">
 from selenium.webdriver import Firefox
 
-def test_search():
-    selenium = Firefox()
-    selenium.get('https://addons.mozilla.org')
-
-    searchbox = selenium.find_element_by_id('search-q')
-    searchbox.send_keys('DuckDuckGo Plus')
-    button = selenium.find_element_by_class_name('search-button')
-    button.click()
-
-    selenium.quit()
+selenium = Firefox()
+selenium.get('https://addons.mozilla.org')
+selenium.find_element_by_id('search-q').send_keys('DuckDuckGo Plus')
+selenium.find_element_by_class_name('search-button').click()
           </code></pre>
         </section>
         <section>
-          <h3 style="color: #f00;">
-            Deprecated due to add-on signing in Firefox 48
+          <h3 class="fragment highlight-red" data-autoslide="0">
+            Deprecated due to<br />add-on signing in Firefox 48
           </h3>
-          <p class="fragment fade-right">
+          <p class="fragment">
             How to solve this problem?
           </p>
         </section>
@@ -101,9 +101,9 @@ def test_search():
         <section>
           <h3>Marionette</h3>
           <ul>
-            <li>Initially created and used to run automated tests for Firefox OS</li>
-            <li>Automation driver for the Gecko engine</li>
-            <li>Now directly build into Firefox and Fennec</li>
+            <li>Introduced in 2012 for Firefox OS</li>
+            <li>Automation framework for Gecko</li>
+            <li>Directly built into Firefox and Fennec</li>
             <li>Can control both chrome and content</li>
             <li>Communicates via TCP sockets</li>
           </ul>
@@ -111,63 +111,72 @@ def test_search():
         <section>
           <h3>GeckoDriver</h3>
           <ul>
-            <li>Proxy for W3C WebDriver-compatible clients and Gecko-based browsers</li>
-            <li>Provides the HTTP API as described by the WebDriver protocol</li>
-            <li>Translates calls into the Marionette automation protocol</li>
+            <li>Proxy for W3C WebDriver and Gecko</li>
+            <li>HTTP API complies with WebDriver spec</li>
+            <li>Translates calls for use with Marionette</li>
             <li>Not feature complete yet</li>
           </ul>
         </section>
         <section>
-          <p>Diagram</p>
           <object data="images/selenium-overview.svg" type="image/svg+xml">
           </object>
-          <p>No test changes are necessary</p>
+          <aside class="notes">
+              No test changes are necessary!
+          </aside>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>Page Objects with FoxPuppet</h2>
+          <h2>Introducing FoxPuppet</h2>
+          <p>Interact with Firefox using Selenium!</p>
         </section>
         <section>
+          <h2>FoxPuppet</h2>
           <ul>
-            <li>Simplifies finding and interacting with UI elements in Firefox</li>
-            <li>Wraps regions and elements into well-structured page objects</li>
-            <li>Offers helpers for commonly used actions</li>
-            <li>Recently got its initial alpha release with basic browser window support</li>
+            <li>Python package with a simple API</li>
+            <li>Locate and interact with Firefox user interface</li>
+            <li>Supports latest Firefox releases</li>
+            <li>Will be used to test Firefox itself</li>
           </ul>
         </section>
         <section>
           <h3>Without FoxPuppet</h3>
-          <pre><code>
+          <pre><code class="python">
 from selenium.webdriver import Firefox
 
-def test_install():
-    selenium = Firefox()
-    selenium.get('https://addons.mozilla.org/addon/adblock-plus/')
-    selenium.find_element_by_css_selector('#addon .installer.button').click()
-    with selenium.context(selenium.CONTEXT_CHROME):
-       # TODO
-    selenium.quit()
+selenium = Firefox()
+selenium.get('http://addons.mozilla.org/addon/duckduckgo-for-firefox')
+selenium.find_element_by_css_selector('#addon .installer').click()
+with selenium.context(selenium.CONTEXT_CHROME):
+    notification = selenium.find_element_by_css_selector(
+        '#addon-install-confirmation-notification')
+    notification.find_anonymous_element_by_attribute(
+        'anonid', 'button').click()
+    notification = selenium.find_element_by_css_selector(
+        '#addon-install-complete-notification')
+    notification.find_anonymous_element_by_attribute(
+        'anonid', 'closebutton').click()
           </code></pre>
+          <aside class="notes">
+              This is a simplified example. A fully working example would also
+              need to include explicit waits for the notifications.
+          </aside>
         </section>
         <section>
           <h3>With FoxPuppet</h3>
-          <pre><code>
+          <pre><code class="python">
 from foxpuppet import FoxPuppet
 from foxpuppet.windows.browser.notifications.addons import (
-    AddOnInstallComplete,
-    AddOnInstallConfirmation)
+    AddOnInstallComplete, AddOnInstallConfirmation)
 from selenium.webdriver import Firefox
 
-def test_install():
-    selenium = Firefox()
-    foxpuppet = FoxPuppet(selenium)
-    selenium.get('https://addons.mozilla.org/addon/duckduckgo-for-firefox/')
-    selenium.find_element_by_css_selector('#addon .installer.button').click()
-    foxpuppet.browser.wait_for_notification(AddOnInstallConfirmation).install()
-    foxpuppet.browser.wait_for_notification(AddOnInstallComplete).close()
-    selenium.quit()
+selenium = Firefox()
+browser = FoxPuppet(selenium).browser
+selenium.get('http://addons.mozilla.org/addon/duckduckgo-for-firefox')
+selenium.find_element_by_css_selector('#addon .installer').click()
+browser.wait_for_notification(AddOnInstallConfirmation).install()
+browser.wait_for_notification(AddOnInstallComplete).close()
           </code></pre>
         </section>
         <section>
@@ -206,7 +215,8 @@ def test_install():
       history: true,
       slideNumber: true,
       dependencies: [
-        { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'reveal.js/plugin/notes/notes.js', async: true },
       ]
     });
   </script>
