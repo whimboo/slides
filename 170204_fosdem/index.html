@@ -54,6 +54,12 @@
               </ul>
             </li>
           </ul>
+          <aside class="notes">
+              <ul>
+                <li>Most common use for Selenium is automated tests.</li>
+                <li>Unofficial clients exist for PHP, Perl, and others.</li>
+              </ul>
+          </aside>
         </section>
         <section>
           <object data="images/selenium-overview-legacy.svg" type="image/svg+xml">
@@ -72,6 +78,14 @@
             <li>Works through a Firefox add-on</li>
             <li>Maintained by the Selenium community</li>
           </ul>
+          <aside class="notes">
+              <ul>
+                <li>The add-on is installed when launching Firefox.</li>
+                <li>The add-on is unlisted, and unsigned.</li>
+                <li>The add-on is a potention security concern.</li>
+                <li>Mozilla has not contributed to the add-on.</li>
+              </ul>
+          </aside>
         </section>
         <section data-background="images/amo.jpg">
           <h3>Example</h3>
@@ -116,6 +130,12 @@ selenium.find_element_by_class_name('search-button').click()
             <li>Translates calls for use with Marionette</li>
             <li>Not feature complete yet</li>
           </ul>
+          <aside class="notes">
+              WebDriver specification will soon reach Candidate Recommendation.
+              After this, few (if any) changes will be made before it becomes a
+              Proposed Recommendation, and then, hopefully, a W3C
+              Recommendation.
+          </aside>
         </section>
         <section>
           <object data="images/selenium-overview.svg" type="image/svg+xml">
@@ -139,6 +159,13 @@ selenium.find_element_by_class_name('search-button').click()
             <li>Supports latest Firefox releases</li>
             <li>Will be used to test Firefox itself</li>
           </ul>
+          <aside class="notes">
+              By using Selenium to test Firefox we may be able to appeal to
+              contributors with experience with Selenium to help us to write
+              tests for Firefox. It also means that we'll invest time in the
+              Selenium clients rather than maintaining a similar codebad purely
+              for Marionette.
+          </aside>
         </section>
         <section>
           <h3>Without FoxPuppet</h3>
