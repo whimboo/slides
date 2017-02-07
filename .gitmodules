@@ -1,0 +1,3 @@
+[submodule "170204_fosdem/reveal.js"]
+	path = 170204_fosdem/reveal.js
+	url = https://github.com/hakimel/reveal.js.git
